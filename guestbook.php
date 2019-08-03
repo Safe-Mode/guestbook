@@ -1,8 +1,9 @@
 <?php
 require_once('functions.php');
 require_once('db.php');
+require_once('pagination.php');
 
-$messages = get_messages();
+$messages = get_messages($row_start, MSG_PER_PAGE);
 
 if (!empty($_POST)) {
   $name = (!empty($_POST['name'])) ? $_POST['name'] : 'Анонимус';
