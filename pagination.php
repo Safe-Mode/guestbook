@@ -1,5 +1,6 @@
 <?php
-define('MSG_PER_PAGE', 2);
+define('MSG_PER_PAGE', 10);
+define('NEARBY_QUANTITY', 2);
 
 $is_page_set = !empty($_GET['page']);
 $msg_quantity = count_messages();

@@ -75,25 +75,34 @@ require_once('guestbook.php');
                 class="page-link"
                 href="?page=<?= $page_num - 1 ?>"
                 tabindex="<?= ($is_first) ? -1 : NULL ?>"
-                aria-disabled="<?= ($is_first) ? true : false ?>">Previous</a>
+                aria-disabled="<?= ($is_first) ? true : false ?>"
+                aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              </a>
           </li>
 
           <?php for ($i = 1; $i <= $page_quantity; $i++) : ?>
-            <?php $is_current = $i === $page_num; ?>
+            <?php
+            $is_current = $i === $page_num;
+            $is_nearby = $page_num >= $i - NEARBY_QUANTITY && $page_num <= $i + NEARBY_QUANTITY;
+            $is_rendered_item = $is_nearby || $i === 1 || $i === $page_quantity;
+            ?>
 
-            <li 
-                class="page-item <?= ($is_current) ? 'active' : NULL ?>"
-                aria-current="<?= ($is_current) ? 'page' : NULL ?>">
-              <a 
-                  class="page-link"
-                  href="?page=<?= $i ?>">
-                <?= $i ?>
+            <?php if ($is_rendered_item) : ?>
+              <li 
+                  class="page-item <?= ($is_current) ? 'active' : NULL ?>"
+                  aria-current="<?= ($is_current) ? 'page' : NULL ?>">
+                <a 
+                    class="page-link"
+                    href="?page=<?= $i ?>">
+                  <?= $i ?>
 
-                <?php if ($is_current) : ?>
-                  <span class="sr-only">(current)</span>
-                <?php endif; ?>
-              </a>
-            </li>
+                  <?php if ($is_current) : ?>
+                    <span class="sr-only">(current)</span>
+                  <?php endif; ?>
+                </a>
+              </li>
+            <?php endif;?>
           <?php endfor; ?>
 
           <li class="page-item <?= ($is_last) ? 'disabled' : NULL ?>">
@@ -101,7 +110,10 @@ require_once('guestbook.php');
                 class="page-link"
                 href="?page=<?= $page_num + 1 ?>"
                 tabindex="<?= ($is_last) ? -1 : NULL ?>"
-                aria-disabled="<?= ($is_last) ? true : false ?>">Next</a>
+                aria-disabled="<?= ($is_last) ? true : false ?>"
+                aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              </a>
           </li>
         </ul>
       </nav>
