@@ -1,5 +1,5 @@
 <?php
-define('MSG_PER_PAGE', 5);
+define('MSG_PER_PAGE', 2);
 
 $is_page_set = !empty($_GET['page']);
 $msg_quantity = count_messages();

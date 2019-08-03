@@ -67,43 +67,45 @@ require_once('guestbook.php');
       </ul>
     </section>
 
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item <?= ($is_first) ? 'disabled' : NULL ?>">
-          <a 
-              class="page-link"
-              href="?page=<?= $page_num - 1 ?>"
-              tabindex="<?= ($is_first) ? -1 : NULL ?>"
-              aria-disabled="<?= ($is_first) ? true : false ?>">Previous</a>
-        </li>
-
-        <?php for ($i = 1; $i <= $page_quantity; $i++) : ?>
-          <?php $is_current = $i === $page_num; ?>
-
-          <li 
-              class="page-item <?= ($is_current) ? 'active' : NULL ?>"
-              aria-current="<?= ($is_current) ? 'page' : NULL ?>">
+    <?php if ($page_quantity > 1) : ?>
+      <nav aria-label="pagination">
+        <ul class="pagination justify-content-center">
+          <li class="page-item <?= ($is_first) ? 'disabled' : NULL ?>">
             <a 
                 class="page-link"
-                href="?page=<?= $i ?>">
-              <?= $i ?>
-
-              <?php if ($is_current) : ?>
-                <span class="sr-only">(current)</span>
-              <?php endif; ?>
-            </a>
+                href="?page=<?= $page_num - 1 ?>"
+                tabindex="<?= ($is_first) ? -1 : NULL ?>"
+                aria-disabled="<?= ($is_first) ? true : false ?>">Previous</a>
           </li>
-        <?php endfor; ?>
 
-        <li class="page-item <?= ($is_last) ? 'disabled' : NULL ?>">
-          <a 
-              class="page-link"
-              href="?page=<?= $page_num + 1 ?>"
-              tabindex="<?= ($is_last) ? -1 : NULL ?>"
-              aria-disabled="<?= ($is_last) ? true : false ?>">Next</a>
-        </li>
-      </ul>
-    </nav>
+          <?php for ($i = 1; $i <= $page_quantity; $i++) : ?>
+            <?php $is_current = $i === $page_num; ?>
+
+            <li 
+                class="page-item <?= ($is_current) ? 'active' : NULL ?>"
+                aria-current="<?= ($is_current) ? 'page' : NULL ?>">
+              <a 
+                  class="page-link"
+                  href="?page=<?= $i ?>">
+                <?= $i ?>
+
+                <?php if ($is_current) : ?>
+                  <span class="sr-only">(current)</span>
+                <?php endif; ?>
+              </a>
+            </li>
+          <?php endfor; ?>
+
+          <li class="page-item <?= ($is_last) ? 'disabled' : NULL ?>">
+            <a 
+                class="page-link"
+                href="?page=<?= $page_num + 1 ?>"
+                tabindex="<?= ($is_last) ? -1 : NULL ?>"
+                aria-disabled="<?= ($is_last) ? true : false ?>">Next</a>
+          </li>
+        </ul>
+      </nav>
+    <?php endif; ?>
   </div>
 </body>
 
